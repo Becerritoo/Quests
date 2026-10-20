@@ -15,6 +15,7 @@ import me.pikamug.quests.BukkitQuestsPlugin;
 import me.pikamug.quests.player.BukkitQuester;
 import me.pikamug.quests.player.Quester;
 import me.pikamug.quests.quests.Quest;
+import me.pikamug.quests.util.BukkitBiomeUtil;
 import me.pikamug.quests.util.BukkitItemUtil;
 import me.pikamug.quests.util.BukkitMiscUtil;
 import org.bukkit.block.Biome;
@@ -289,14 +290,14 @@ public class BukkitCondition implements Condition {
             }
         } else if (!biomesWhileStayingWithin.isEmpty()) {
             boolean atLeastOne = false;
+            final String playerBiome = BukkitBiomeUtil.getBiome(player.getLocation(),
+                    plugin.getConfigSettings().getBiomeLookupMode()).name();
             for (final String b : biomesWhileStayingWithin) {
                 final Biome properBiome = BukkitMiscUtil.getProperBiome(b);
                 if (properBiome == null) {
                     plugin.getLogger().warning("Invalid entry for condition biome checks: " + b);
                     continue;
                 }
-                final String playerBiome = player.getWorld().getBiome(player.getLocation().getBlockX(),
-                                player.getLocation().getBlockZ()).name();
                 if (playerBiome.equalsIgnoreCase(properBiome.name())) {
                     atLeastOne = true;
                     break;

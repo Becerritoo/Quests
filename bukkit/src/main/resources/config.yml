@@ -3,6 +3,8 @@ allow-command-questing: true
 allow-command-quests-with-npcs: false
 allow-pranks: true
 clickable-prompts: true
+# Biome conditions use the current block in auto/3d mode, or the legacy X/Z column in 2d mode.
+condition-biome-mode: auto
 condition-interval: 10
 confirm-abandon: true
 confirm-accept: true

@@ -21,6 +21,8 @@ public interface ConfigSettings {
     void setAllowPranks(final boolean allowPranks);
     boolean canClickablePrompts();
     void setClickablePrompts(boolean clickablePrompts);
+    BiomeLookupMode getBiomeLookupMode();
+    void setBiomeLookupMode(final BiomeLookupMode biomeLookupMode);
     int getConditionInterval();
     void setConditionInterval(final int conditionInterval);
     boolean canConfirmAbandon();

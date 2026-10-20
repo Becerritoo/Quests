@@ -25,6 +25,7 @@ public class BukkitConfigSettings implements ConfigSettings {
     private boolean allowCommandsForNpcQuests = false;
     private boolean allowPranks = true;
     private boolean clickablePrompts = true;
+    private BiomeLookupMode biomeLookupMode = BiomeLookupMode.AUTO;
     private int conditionInterval = 7;
     private boolean confirmAbandon = true;
     private boolean confirmAccept = true;
@@ -84,6 +85,12 @@ public class BukkitConfigSettings implements ConfigSettings {
     }
     public void setClickablePrompts(boolean clickablePrompts) {
         this.clickablePrompts = clickablePrompts;
+    }
+    public BiomeLookupMode getBiomeLookupMode() {
+        return biomeLookupMode;
+    }
+    public void setBiomeLookupMode(final BiomeLookupMode biomeLookupMode) {
+        this.biomeLookupMode = biomeLookupMode;
     }
     public int getConditionInterval() {
         return conditionInterval;
@@ -247,6 +254,14 @@ public class BukkitConfigSettings implements ConfigSettings {
         allowCommandsForNpcQuests = config.getBoolean("allow-command-quests-with-npcs", false);
         allowPranks = config.getBoolean("allow-pranks", true);
         clickablePrompts = config.getBoolean("clickable-prompts", true);
+        final String configuredBiomeLookupMode = config.getString("condition-biome-mode", "auto");
+        try {
+            biomeLookupMode = BiomeLookupMode.fromConfig(configuredBiomeLookupMode);
+        } catch (final IllegalArgumentException e) {
+            plugin.getLogger().warning("Invalid condition-biome-mode '" + configuredBiomeLookupMode
+                    + "', reverting to auto");
+            biomeLookupMode = BiomeLookupMode.AUTO;
+        }
         conditionInterval = config.getInt("condition-interval", 8);
         confirmAbandon = config.getBoolean("confirm-abandon", true);
         confirmAccept = config.getBoolean("confirm-accept", true);
